@@ -1,0 +1,26 @@
+<script>
+  class Group extends Emitter {
+    constructor(title = "Group Title") {
+      super();
+      this.title = title;
+      this.cards = [];
+
+      this.element = document.createElement("div");
+      this.element.className = "column";
+      this.card = document.createElement("div");
+      this.card.className = "card";
+      this.header = document.createElement("div");
+      this.header.className = "card-header group-header";
+      this.header.innerText = this.title;
+      this.closeButton = document.createElement("button");
+      this.closeButton.className = "btn btn-link btn-action btn-sm";
+      this.closeButton.onclick = () => this.emit("close");
+      this.closeButton.innerHTML = '<i class="icon icon-close"></i>';
+      this.header.append(this.closeButton);
+      this.body = document.createElement("div");
+      this.body.className = "card-body";
+      this.card.append(this.header, this.body);
+      this.element.append(this.card);
+    }
+  }
+</script>

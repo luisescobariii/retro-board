@@ -1,0 +1,69 @@
+<script>
+  const syncToggle = document.getElementById("syncToggle");
+  const syncLabel = document.getElementById("syncLabel");
+  const addGroupButton = document.getElementById("addGroupButton");
+  const board = document.getElementById("board");
+  const deleteGroupDialog = document.getElementById("deleteGroupDialog");
+
+  let syncTimerId;
+
+  function init() {
+    syncToggle.addEventListener("change", toggleSync);
+    addGroupButton.addEventListener("click", addGroup);
+  }
+
+  function update(data) {
+    console.dir(data);
+  }
+
+  function logError(error) {
+    console.error(error);
+  }
+
+  function toggleSync({ target: { checked } }) {
+    if (checked) {
+      syncTimerId = setInterval(() => {
+        google.script.run
+          .withSuccessHandler(update)
+          .withFailureHandler(logError)
+          .sync();
+      }, 5000);
+      syncLabel.innerText = "Sync On";
+    } else {
+      clearInterval(syncTimerId);
+      syncLabel.innerText = "Sync Off";
+    }
+  }
+
+  function addGroup() {
+    let group = new Group();
+    group.on("close", () => {
+      if (group.cards.length > 0) {
+        showDeleteGroupDialog(group);
+      } else {
+        deleteGroup(group);
+      }
+    });
+    board.append(group.element);
+  }
+
+  function deleteGroup(group) {
+    hideDeletGroupDialog();
+    group.element.remove();
+    group = null;
+  }
+
+  function showDeleteGroupDialog(group) {
+    deleteGroupDialog.querySelector(".group-name").innerText = group.title;
+    deleteGroupDialog
+      .querySelector(".btn-error")
+      .addEventListener("click", () => deleteGroup(group));
+    deleteGroupDialog.classList.add("active");
+  }
+
+  function hideDeletGroupDialog() {
+    deleteGroupDialog.classList.remove("active");
+  }
+
+  init();
+</script>

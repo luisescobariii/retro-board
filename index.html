@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Retro-Board</title>
+
+    <?!= include('spectre'); ?>
+    <?!= include('styles'); ?>
+  </head>
+  <body>
+    <header class="navbar">
+      <section class="navbar-section">
+        <span class="navbar-brand mr-2">GandAuth Retro</span>
+      </section>
+      <section class="navbar-section">
+        <div class="input-group input-inline">
+          <button class="btn" id="addGroupButton">Add Group</button>
+
+          <div class="form-group">
+            <label class="form-switch">
+              <input type="checkbox" id="syncToggle" />
+              <i class="form-icon"></i>
+              <span id="syncLabel">Sync Off</span>
+            </label>
+          </div>
+        </div>
+      </section>
+    </header>
+
+    <div class="container">
+      <div id="board" class="columns"></div>
+    </div>
+
+    <div class="modal modal-sm" id="deleteGroupDialog">
+      <a
+        href="javascript:hideDeletGroupDialog()"
+        class="modal-overlay"
+        aria-label="Close"
+      ></a>
+      <div class="modal-container">
+        <div class="modal-header">
+          <a
+            href="javascript:hideDeletGroupDialog()"
+            class="btn btn-clear float-right"
+            aria-label="Close"
+          ></a>
+          <div class="modal-title h5">Delete group</div>
+        </div>
+        <div class="modal-body">
+          <div class="content">
+            Are you sure you want to delete the group "<span
+              class="group-name"
+            ></span
+            >" and all of its cards?
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-error">Delete</button>
+          <button class="btn btn-link" onclick="hideDeletGroupDialog()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <?!= include('utils'); ?>
+    <?!= include('group'); ?>
+    <?!= include('script'); ?>
+  </body>
+</html>
