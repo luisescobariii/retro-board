@@ -11,7 +11,22 @@
       this.card.className = "card";
       this.header = document.createElement("div");
       this.header.className = "card-header group-header";
-      this.header.innerText = this.title;
+      this.cardTitle = document.createElement("div");
+      this.cardTitle.className = "card-title h5";
+      this.cardTitle.innerHTML = this.title;
+      this.cardTitle.contentEditable = true;
+      this.cardTitle.tabIndex = 0;
+      this.cardTitleChanged = false;
+      this.cardTitle.addEventListener("input", () => {
+        this.cardTitleChanged = true;
+      });
+      this.cardTitle.addEventListener("focusout", () => {
+        if (this.cardTitleChanged) {
+          this.cardTitleChanged = false;
+          this.title = this.cardTitle.innerText;
+        }
+      });
+      this.header.append(this.cardTitle);
       this.closeButton = document.createElement("button");
       this.closeButton.className = "btn btn-link btn-action btn-sm";
       this.closeButton.onclick = () => this.emit("close");
