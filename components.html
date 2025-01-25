@@ -34,6 +34,8 @@
       this.header.append(this.closeButton);
       this.body = document.createElement("div");
       this.body.className = "card-body group-body";
+      this.body.addEventListener("dragover", this.dragCardOver.bind(this));
+      this.body.addEventListener("drop", this.dropCard.bind(this));
       this.addButton = document.createElement("button");
       this.addButton.className = "btn btn-block btn-link";
       this.addButton.innerText = "Add card";
@@ -49,6 +51,17 @@
       this.body.insertBefore(card.element, this.addButton);
       setTimeout(() => card.content.focus(), 0);
     }
+
+    dragCardOver(event) {
+      event.preventDefault();
+      event.dataTransfer.dropEffect = "move";
+    }
+
+    dropCard(event) {
+      event.preventDefault();
+      const cardId = event.dataTransfer.getData("text/plain");
+      this.body.insertBefore(document.getElementById(cardId), this.addButton);
+    }
   }
 
   class Card extends Emitter {
@@ -57,7 +70,10 @@
       this.message = "";
 
       this.element = document.createElement("div");
+      this.element.id = new Date().getTime();
       this.element.className = "card drag-card";
+      this.element.draggable = true;
+      this.element.addEventListener("dragstart", this.startDrag.bind(this));
       this.body = document.createElement("div");
       this.body.className = "card-body";
       this.handle = document.createElement("div");
@@ -70,6 +86,12 @@
       this.content.tabIndex = 0;
       this.body.append(this.handle, this.content);
       this.element.append(this.body);
+    }
+
+    startDrag(event) {
+      console.dir(event);
+      event.dataTransfer.setData("text/plain", this.element.id);
+      event.dataTransfer.dropEffect = "move";
     }
   }
 </script>
