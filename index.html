@@ -9,15 +9,15 @@
     <?!= include('styles'); ?>
   </head>
   <body>
-    <header class="navbar">
+    <header class="navbar p-2">
       <section class="navbar-section">
-        <span class="navbar-brand mr-2">GandAuth Retro</span>
+        <span class="navbar-brand ml-2 mr-2">GandAuth Retro</span>
       </section>
       <section class="navbar-section">
         <div class="input-group input-inline">
-          <button class="btn" id="addGroupButton">Add Group</button>
+          <button class="btn ml-2" id="addGroupButton">Add Group</button>
 
-          <div class="form-group">
+          <div class="form-group ml-2">
             <label class="form-switch">
               <input type="checkbox" id="syncToggle" />
               <i class="form-icon"></i>
@@ -65,7 +65,7 @@
     </div>
 
     <?!= include('utils'); ?>
-    <?!= include('group'); ?>
+    <?!= include('components'); ?>
     <?!= include('script'); ?>
   </body>
 </html>

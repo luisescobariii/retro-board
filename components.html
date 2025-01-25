@@ -33,9 +33,33 @@
       this.closeButton.innerHTML = '<i class="icon icon-close"></i>';
       this.header.append(this.closeButton);
       this.body = document.createElement("div");
-      this.body.className = "card-body";
+      this.body.className = "card-body group-body";
+      this.addButton = document.createElement("button");
+      this.addButton.className = "btn btn-block btn-link";
+      this.addButton.innerText = "Add card";
+      this.addButton.addEventListener("click", this.addCard.bind(this));
+      this.body.append(this.addButton);
       this.card.append(this.header, this.body);
       this.element.append(this.card);
+    }
+
+    addCard(event) {
+      let card = new Card();
+      this.cards.push(card);
+      this.body.insertBefore(card.element, this.addButton);
+    }
+  }
+
+  class Card extends Emitter {
+    constructor() {
+      super();
+      this.message = "";
+
+      this.element = document.createElement("div");
+      this.element.className = "card";
+      this.body = document.createElement("div");
+      this.body.className = "card-body";
+      this.element.append(this.body);
     }
   }
 </script>
