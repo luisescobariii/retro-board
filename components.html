@@ -47,6 +47,7 @@
       let card = new Card();
       this.cards.push(card);
       this.body.insertBefore(card.element, this.addButton);
+      setTimeout(() => card.content.focus(), 0);
     }
   }
 
@@ -56,9 +57,18 @@
       this.message = "";
 
       this.element = document.createElement("div");
-      this.element.className = "card";
+      this.element.className = "card drag-card";
       this.body = document.createElement("div");
       this.body.className = "card-body";
+      this.handle = document.createElement("div");
+      this.handle.className = "drag-handle";
+      this.handle.innerHTML =
+        '<i class="icon icon-more-vert"></i><i class="icon icon-more-vert"></i>';
+      this.content = document.createElement("div");
+      this.content.className = "content";
+      this.content.contentEditable = true;
+      this.content.tabIndex = 0;
+      this.body.append(this.handle, this.content);
       this.element.append(this.body);
     }
   }

@@ -34,4 +34,31 @@
     flex-direction: column;
     gap: 0.8rem;
   }
+
+  .drag-card .card-body {
+    display: flex;
+    padding: 0 !important;
+  }
+
+  .drag-handle {
+    display: flex;
+    flex-basis: 0;
+    padding: 0.2rem;
+    align-items: center;
+    cursor: grab;
+  }
+
+  .drag-handle i {
+    width: 0.3rem;
+    opacity: 0.5;
+  }
+
+  .drag-card .content {
+    width: 100%;
+    min-height: 2rem;
+    padding: 0.2rem 0.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 </style>
